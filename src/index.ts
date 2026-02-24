@@ -21,21 +21,28 @@ const countWords = (str: string): number => {
   return matches ? matches.length : 0;
 }
 
+const countCharacters = (str: string): number => [...str].length
+
+let fileBuffer: Buffer;
+let fileString: string;
+
 try {
-  const fileBuffer = fs.readFileSync(fileName)
-  const fileString = fileBuffer.toString("utf8");
-
-  const bytesCount = fileBuffer.byteLength;
-  const linesCount = countLines(fileString);
-  const wordsCount = countWords(fileString);
-
-  if (flags.includes("-c")) console.log(`${bytesCount} ${fileName}`);
-  if (flags.includes("-l")) console.log(`${linesCount} ${fileName}`);
-  if (flags.includes("-w")) console.log(`${wordsCount} ${fileName}`);
-
+  fileBuffer = fs.readFileSync(fileName)
+  fileString = fileBuffer.toString("utf8");
 } catch (err) {
   console.error(`Error reading file ${err}`);
   process.exit(1);
 }
 
+const bytesCount = fileBuffer.byteLength;
+const linesCount = countLines(fileString);
+const wordsCount = countWords(fileString);
+const characterCount = countCharacters(fileString);
 
+if (flags.includes("-c")) console.log(`${bytesCount} ${fileName}`);
+if (flags.includes("-l")) console.log(`${linesCount} ${fileName}`);
+if (flags.includes("-w")) console.log(`${wordsCount} ${fileName}`);
+if (flags.includes("-m")) console.log(`${characterCount} ${fileName}`);
+
+if (flags.length === 0) 
+  console.log(`${linesCount} ${wordsCount} ${bytesCount} ${fileName}`)
