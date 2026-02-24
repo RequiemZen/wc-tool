@@ -1,9 +1,5 @@
 {
-  "name": "dns-resolver",
-  "version": "1.0.0",
-  "scripts": {
-    "start": "tsx index.ts"
-  },
+  "name": "wc-tool",
   "license": "ISC",
   "type": "module",
   "devDependencies": {
